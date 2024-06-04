@@ -2,13 +2,21 @@
   "name": "app",
   "version": "1.0.50",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@elysiajs/swagger": "1.0.5",
+    "@zodyac/zod-mongoose": "1.1.2",
+    "argon2": "0.40.3",
+    "concurrently": "8.2.2",
+    "elysia": "latest",
+    "mongoose": "8.4.1",
+    "uuidv4": "6.2.13",
+    "zod": "3.23.8"
   },
   "devDependencies": {
+    "oxlint": "0.4.2",
     "bun-types": "latest"
   },
   "module": "src/index.js"
