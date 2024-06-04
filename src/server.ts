@@ -3,6 +3,7 @@ import swagger from '@elysiajs/swagger'
 import { fixCtxRequest } from '@/lib/utils/fix-ctx-request'
 import { createElysia } from '@/lib/utils/elysia'
 import { routes } from './routes'
+import { handleErrors } from './lib/hooks/on-error'
 
 export const server = createElysia()
   .derive((ctx) => fixCtxRequest(ctx.request))
@@ -10,3 +11,4 @@ export const server = createElysia()
   // .onStart(connectDB)
   // .onStop(disconnectDB)
   .use(routes)
+  .onError(handleErrors)
