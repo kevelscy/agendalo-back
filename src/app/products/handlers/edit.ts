@@ -6,10 +6,13 @@ import { UserEdit } from '@/app/users/models'
 import { validateMongoId } from '@/lib/middlewares/validate-mongodb-id'
 import { IHandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/errors'
+import { productRepository } from '../repository'
+import { ProductEdit } from '../models'
 
-export const handleUpdateUser: Handler = async ({ body, set, params }): Promise<IHandleResponse<UserEdit>> => {
+export const handleEditProduct: Handler = async ({ body, set, params, headers }): Promise<IHandleResponse<ProductEdit>> => {
+  const product = body as ProductEdit
+  const { bussines } = headers
   const { id } = params
-  const user = body as UserEdit
 
   const isValidId = validateMongoId(id)
 
@@ -23,7 +26,7 @@ export const handleUpdateUser: Handler = async ({ body, set, params }): Promise<
     }
   }
 
-  if (!user) {
+  if (!product) {
     set.status = DICTIONARY_ERRORS.MISSING_FIELDS.code
 
     return {
@@ -33,11 +36,11 @@ export const handleUpdateUser: Handler = async ({ body, set, params }): Promise<
     }
   }
 
-  const newUser = await userRepository().update(id, user)
+  const newUser = await productRepository({ bussines }).update(id, product)
 
   return {
     result: { data: newUser },
-    errors: [],
+    errors: null,
     info: null
   }
 }

@@ -1,7 +1,9 @@
 import { Schema, model, Types } from 'mongoose'
-import { IUser, IUserSecurity } from './schemas'
 
-const USER_SECURITY_DB_SCHEMA = new Schema<IUserSecurity>({
+import { commonSchemaOptions } from '@/lib/utils/schemas-options'
+import { User, UserSecurity } from './schemas'
+
+const USER_SECURITY_DB_SCHEMA = new Schema<UserSecurity>({
   token: {
     type: String,
     required: false
@@ -10,9 +12,9 @@ const USER_SECURITY_DB_SCHEMA = new Schema<IUserSecurity>({
     type: String,
     required: true
   },
-}, { versionKey: false })
+}, commonSchemaOptions<UserSecurity>())
 
-const USER_DB_SCHEMA = new Schema<IUser>({
+const USER_DB_SCHEMA = new Schema<User>({
   firstName: {
     type: String,
     required: true
@@ -38,10 +40,7 @@ const USER_DB_SCHEMA = new Schema<IUser>({
     type: Types.ObjectId,
     ref: 'user_security'
   }
-}, {
-  versionKey: false,
-  timestamps: true
-})
+}, commonSchemaOptions<User>())
 
 export const UserModel = model('user', USER_DB_SCHEMA)
 export const UserSecurityModel = model('user_security', USER_SECURITY_DB_SCHEMA)

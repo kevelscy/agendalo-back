@@ -5,11 +5,11 @@ export const handleErrors = ({ code, error, set }) => {
     set.status = 404
 
     return {
-      data: null,
-      error: {
+      result: null,
+      errors: [{
         code: 404,
         message: 'Not Found :('
-      }
+      }]
     }
   }
 }

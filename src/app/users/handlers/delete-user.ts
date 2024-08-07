@@ -1,13 +1,13 @@
 import { Handler } from 'elysia'
 
 import { userRepository } from '@/app/users/repository'
-import { IUser } from '@/app/users/models'
+import { User } from '@/app/users/models'
 
 import { validateMongoId } from '@/lib/middlewares/validate-mongodb-id'
 import { IHandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/errors'
 
-export const handleDeleteUserById: Handler = async ({ params, set }): Promise<IHandleResponse<IUser>> => {
+export const handleDeleteUserById: Handler = async ({ params, set }): Promise<IHandleResponse<User>> => {
   try {
     const { id } = params
     const user = await userRepository().getById(id)
@@ -18,15 +18,15 @@ export const handleDeleteUserById: Handler = async ({ params, set }): Promise<IH
       set.status = DICTIONARY_ERRORS.INVALID_ID.code
 
       return {
-        data: null,
+        result: null,
         info: null,
-        error: DICTIONARY_ERRORS.INVALID_ID,
+        errors: [{ ...DICTIONARY_ERRORS.INVALID_ID }],
       }
     }
 
     return {
-      data: user,
-      error: null,
+      result: { data: user },
+      errors: [],
       info: null
     }
 
@@ -34,8 +34,8 @@ export const handleDeleteUserById: Handler = async ({ params, set }): Promise<IH
     set.status = DICTIONARY_ERRORS.ERROR_TO_GET_RESOURCE.code
 
     return {
-      error: DICTIONARY_ERRORS.ERROR_TO_GET_RESOURCE,
-      data: null,
+      errors: [{ ...DICTIONARY_ERRORS.ERROR_TO_GET_RESOURCE }],
+      result: null,
       info: null
     }
   }

@@ -1,15 +1,16 @@
 import hasher from 'argon2'
 
-import { ICreateUser, IUserSecurity, UserSecurityModel } from '@/app/users/models'
+import { User, UserCreate, UserModel, UserSecurityModel } from '@/app/users/models'
 
 // TODO: encrypt password
-export const createUserAccount = async (user: ICreateUser): Promise<IUserSecurity> => {
+export const createUserAccount = async (user: UserCreate): Promise<User> => {
   try {
     const passwordHashed = await hasher.hash(user.password)
 
     const userSecurityCreated = await UserSecurityModel.create({ password: passwordHashed })
+    const userCreated = await UserModel.create({ ...user, security: userSecurityCreated.id || userSecurityCreated._id })
 
-    return userSecurityCreated.toObject({ getters: true, virtuals: false })
+    return userCreated.toObject({ getters: true, virtuals: false })
 
   } catch (error) {
     return null

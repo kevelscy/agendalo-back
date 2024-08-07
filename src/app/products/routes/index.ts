@@ -1,8 +1,17 @@
+import bearer from '@elysiajs/bearer'
 import { Elysia } from 'elysia'
 
+import { verifyBussines } from '@/lib/middlewares/verify-bussines'
+import { verifyToken } from '@/lib/middlewares/verify-token'
+import { handleGetAllProducts } from '../handlers/get-all'
+import { handleCreateProduct } from '../handlers/create'
+
 export const PRODUCT_ROUTES = new Elysia()
-  .get('/products', () => 'GET products')
-  .post('/products', () => 'CREATE product')
+  .use(bearer())
+  .onBeforeHandle(verifyToken)
+  .onBeforeHandle(verifyBussines)
+  .get('/products', handleGetAllProducts)
+  .post('/products', handleCreateProduct)
   .put('/products/:id', () => 'UPDATE product')
   .get('/products/:id', () => 'GET product by id')
   .delete('/products/:id', () => 'DELETE product by id')

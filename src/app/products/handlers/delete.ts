@@ -1,16 +1,18 @@
 import { Handler } from 'elysia'
 
-import { userRepository } from '@/app/users/repository'
-import { User } from '@/app/users/models'
-
 import { validateMongoId } from '@/lib/middlewares/validate-mongodb-id'
 import { IHandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/errors'
 
-export const handleGetUserById: Handler = async ({ params, set }): Promise<IHandleResponse<User>> => {
+import { productRepository } from '../repository'
+import { Product } from '../models'
+
+export const handleDeleteProductById: Handler = async ({ params, set, headers }): Promise<IHandleResponse<Product>> => {
+  const { bussines } = headers
+
   try {
     const { id } = params
-    const user = await userRepository().getById(id)
+    const product = await productRepository({ bussines }).delete(id)
 
     const isValidId = validateMongoId(id)
 
@@ -25,7 +27,7 @@ export const handleGetUserById: Handler = async ({ params, set }): Promise<IHand
     }
 
     return {
-      result: { data: user },
+      result: { data: product },
       errors: [],
       info: null
     }

@@ -1,6 +1,6 @@
 import { Handler } from 'elysia'
 
-import { ICreateUser, IUser, createUserSchema } from '@/app/users/models'
+import { UserCreate, User, createUserSchema } from '@/app/users/models'
 import { userRepository } from '@/app/users/repository'
 
 import { validateSchema } from '@/lib/utils/validate-schema'
@@ -8,25 +8,25 @@ import { IHandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/errors'
 import { authRepository } from '../repository'
 
-export const handleSignUp: Handler = async ({ body, set }): Promise<IHandleResponse<IUser>> => {
-  const user = body as ICreateUser
+export const handleSignUp: Handler = async ({ body, set }): Promise<IHandleResponse<User>> => {
+  const user = body as UserCreate
   const isValidReq = validateSchema(createUserSchema, user)
 
   if (!isValidReq) {
     set.status = DICTIONARY_ERRORS.MISSING_FIELDS.code
 
     return {
-      data: null,
+      result: null,
       info: null,
-      error: DICTIONARY_ERRORS.MISSING_FIELDS,
+      errors: [{ ...DICTIONARY_ERRORS.MISSING_FIELDS }],
     }
   }
 
   const newUser = await authRepository().createUserAccount(user)
 
   return {
-    data: newUser,
-    error: null,
+    result: { data: newUser },
+    errors: [],
     info: null
   }
 }
