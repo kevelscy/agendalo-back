@@ -1,15 +1,14 @@
 import { Handler } from 'elysia'
 
-import { fromQueryString } from '@/lib/utils/convert-query-string-to-object'
 import { isQueryPaginationInvalid } from '@/lib/utils/pagination-helpers'
 import { formatResponse } from '@/lib/utils/format-response'
 import { DICTIONARY_SUCCESS } from '@/config/sucess'
 import { HandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/errors'
-import { productRepository } from '../repository'
-import { Product } from '../models'
+import { bussinessRepository } from '../repository'
+import { Bussiness } from '../models'
 
-export const handleGetAllProducts: Handler = async ({ set, query, headers }): Promise<HandleResponse<Product[]>> => {
+export const handleGetAllBussiness: Handler = async ({ set, query, headers }): Promise<HandleResponse<Bussiness[]>> => {
   const { bussines } = headers
 
   const invalidPagination = isQueryPaginationInvalid(query)
@@ -24,13 +23,12 @@ export const handleGetAllProducts: Handler = async ({ set, query, headers }): Pr
     }
   }
 
-  const queryStringObject = fromQueryString(query) as {
-    pagination: { limit: number, page: number }
-    filters: { status: string[] }
-    queries: { name: string }
+  const paginationInfo = {
+    limit: Number(query.limit),
+    page: Number(query.page),
   }
 
-  const { data, pagination } = await productRepository({ bussines }).getAll({ ...queryStringObject })
+  const { data, pagination } = await bussinessRepository().getAll({ ...query, pagination: paginationInfo })
 
   const response = formatResponse({
     data,

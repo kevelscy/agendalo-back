@@ -1,15 +1,12 @@
 import { Handler } from 'elysia'
 
-import { userRepository } from '@/app/users/repository'
-import { UserEdit } from '@/app/users/models'
-
 import { validateMongoId } from '@/lib/middlewares/validate-mongodb-id'
-import { IHandleResponse } from '@/lib/schemas/http'
+import { HandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/errors'
 import { productRepository } from '../repository'
 import { ProductEdit } from '../models'
 
-export const handleEditProduct: Handler = async ({ body, set, params, headers }): Promise<IHandleResponse<ProductEdit>> => {
+export const handleEditProduct: Handler = async ({ body, set, params, headers }): Promise<HandleResponse<ProductEdit>> => {
   const product = body as ProductEdit
   const { bussines } = headers
   const { id } = params

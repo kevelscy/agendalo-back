@@ -1,5 +1,6 @@
 import { Elysia } from 'elysia'
+import { handleSignUp } from '../handlers/sign-up'
 
 export const AUTH_ROUTES = new Elysia({ prefix: '/auth' })
   .post('/sign-in', () => 'Sign in')
-  .post('/sign-up', () => 'Sign up')
+  .post('/sign-up', handleSignUp)

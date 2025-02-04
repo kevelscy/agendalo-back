@@ -4,10 +4,10 @@ import { userRepository } from '@/app/users/repository'
 import { UserEdit } from '@/app/users/models'
 
 import { validateMongoId } from '@/lib/middlewares/validate-mongodb-id'
-import { IHandleResponse } from '@/lib/schemas/http'
+import { HandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/errors'
 
-export const handleUpdateUser: Handler = async ({ body, set, params }): Promise<IHandleResponse<UserEdit>> => {
+export const handleUpdateUser: Handler = async ({ body, set, params }): Promise<HandleResponse<UserEdit>> => {
   const { id } = params
   const user = body as UserEdit
 

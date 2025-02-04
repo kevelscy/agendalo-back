@@ -58,7 +58,7 @@ export const PRODUCT_QUERIES_SCHEMA = z.object({
 })
 
 export const PRODUCT_FILTERS_SCHEMA = z.object({
-  status: string
+  status: z.array(string)
 })
 
 export interface ProductQueries extends z.infer<typeof PRODUCT_QUERIES_SCHEMA> { }

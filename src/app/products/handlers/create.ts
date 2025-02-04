@@ -1,13 +1,13 @@
 import { Handler } from 'elysia'
 
 import { validateSchema } from '@/lib/utils/validate-schema'
-import { IHandleResponse } from '@/lib/schemas/http'
+import { HandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/errors'
 
 import { Product, ProductCreate, productCreateSchema } from '../models'
 import { productRepository } from '../repository'
 
-export const handleCreateProduct: Handler = async ({ body, set, headers }): Promise<IHandleResponse<Product>> => {
+export const handleCreateProduct: Handler = async ({ body, set, headers }): Promise<HandleResponse<Product>> => {
   const { bussines } = headers
 
   const product: ProductCreate = {

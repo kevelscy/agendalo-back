@@ -1,26 +1,27 @@
 import hasher from 'argon2'
 
 import { User, UserCreate, UserModel, UserSecurityModel } from '@/app/users/models'
+import { SignUpPayload } from '../models'
+import { userRepository } from '@/app/users/repository'
+import { bussinessRepository } from '@/app/bussiness/repository'
+import { convertFormdataToObject } from '@/lib/utils/convert-formdata-to-object'
 
 // TODO: encrypt password
-export const createUserAccount = async (user: UserCreate): Promise<User> => {
-  try {
-    const passwordHashed = await hasher.hash(user.password)
+export const signUpAccount = async (payload: SignUpPayload): Promise<SignUpPayload> => {
+  const { owner, bussiness } = convertFormdataToObject(payload) as SignUpPayload
 
-    const userSecurityCreated = await UserSecurityModel.create({ password: passwordHashed })
-    const userCreated = await UserModel.create({ ...user, security: userSecurityCreated.id || userSecurityCreated._id })
+  const ownerCreated = await userRepository().create(owner)
 
-    return userCreated.toObject({ getters: true, virtuals: false })
+  const bussinessCreated = await bussinessRepository().create(bussiness)
 
-  } catch (error) {
-    return null
-  } finally {
-
+  return {
+    bussiness: bussinessCreated,
+    owner: ownerCreated
   }
 }
 
 export const authRepository = () => {
   return {
-    createUserAccount
+    signUpAccount
   }
 }

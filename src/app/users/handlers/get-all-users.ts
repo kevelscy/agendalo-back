@@ -6,10 +6,10 @@ import { User } from '@/app/users/models'
 import { isQueryPaginationInvalid } from '@/lib/utils/pagination-helpers'
 import { formatResponse } from '@/lib/utils/format-response'
 import { DICTIONARY_SUCCESS } from '@/config/sucess'
-import { IHandleResponse } from '@/lib/schemas/http'
+import { HandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/errors'
 
-export const handleGetAllUsers: Handler = async ({ set, query }): Promise<IHandleResponse<User[]>> => {
+export const handleGetAllUsers: Handler = async ({ set, query }): Promise<HandleResponse<User[]>> => {
   const invalidPagination = isQueryPaginationInvalid(query)
 
   if (invalidPagination) {

@@ -21,7 +21,7 @@ export type Queries<T> = {
 }
 
 export type Filters<T> = {
-  [K in keyof T]: string
+  [K in keyof T]: string[]
 }
 
 export interface Params<EntityQueries = any, EntityFilters = any> {
@@ -35,14 +35,14 @@ export interface Result<TData> {
   pagination?: Pagination
 }
 
-export interface IHandleErrorResponse {
+export interface HandleErrorResponse {
   message: string
   context?: any
 }
 
-export interface IHandleResponse<TData> {
+export interface HandleResponse<TData> {
   info?: Info
-  errors?: IHandleErrorResponse[]
+  errors?: HandleErrorResponse[]
   result?: Result<TData>
 }
 

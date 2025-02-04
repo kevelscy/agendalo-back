@@ -4,10 +4,10 @@ import { userRepository } from '@/app/users/repository'
 import { User } from '@/app/users/models'
 
 import { validateMongoId } from '@/lib/middlewares/validate-mongodb-id'
-import { IHandleResponse } from '@/lib/schemas/http'
+import { HandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/errors'
 
-export const handleGetUserById: Handler = async ({ params, set }): Promise<IHandleResponse<User>> => {
+export const handleGetUserById: Handler = async ({ params, set }): Promise<HandleResponse<User>> => {
   try {
     const { id } = params
     const user = await userRepository().getById(id)

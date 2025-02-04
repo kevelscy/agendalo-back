@@ -1,7 +1,7 @@
 import hasher from 'argon2'
 
 import { applyFilters, applyQueries, generatePaginationResponse, paginate } from '@/lib/utils/pagination-helpers'
-import { UserCreate, UserEdit, User, UserModel, UserSecurityModel, UserFilters, UserQueries } from '../models'
+import { UserCreate, UserEdit, User, UserModel, UserSecurityModel, UserFilters, UserQueries, UserStatus } from '../models'
 import { isObjectEmpty } from '@/lib/utils/is-object-empty'
 import { Params, Result } from '@/lib/schemas/http'
 
@@ -40,7 +40,15 @@ export const create = async (user: UserCreate): Promise<User> => {
     const passwordHashed = await hasher.hash(user.password)
 
     const userSecurityCreated = await UserSecurityModel.create({ password: passwordHashed })
-    const userCreated = await UserModel.create({ ...user, security: userSecurityCreated.id })
+
+    const userCreated = await UserModel.create({
+      status: UserStatus.ACTIVATE,
+      email: user?.email,
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      pid: user?.pid,
+      security: userSecurityCreated.id
+    })
 
     const userObject = userCreated.toObject({ getters: true, virtuals: false })
     delete userObject.security
@@ -49,8 +57,6 @@ export const create = async (user: UserCreate): Promise<User> => {
 
   } catch (error) {
     return null
-  } finally {
-
   }
 }
 

@@ -4,13 +4,15 @@ import { UserCreate, User, createUserSchema } from '@/app/users/models'
 import { userRepository } from '@/app/users/repository'
 
 import { validateSchema } from '@/lib/utils/validate-schema'
-import { IHandleResponse } from '@/lib/schemas/http'
+import { HandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/errors'
 import { authRepository } from '../repository'
+import { SignUpPayload } from '../models'
 
-export const handleSignUp: Handler = async ({ body, set }): Promise<IHandleResponse<User>> => {
-  const user = body as UserCreate
-  const isValidReq = validateSchema(createUserSchema, user)
+export const handleSignUp: Handler = async ({ body, set }): Promise<HandleResponse<SignUpPayload>> => {
+  const signUpPayload = body as SignUpPayload
+
+  const isValidReq = validateSchema(createUserSchema, signUpPayload)
 
   if (!isValidReq) {
     set.status = DICTIONARY_ERRORS.MISSING_FIELDS.code
@@ -22,10 +24,10 @@ export const handleSignUp: Handler = async ({ body, set }): Promise<IHandleRespo
     }
   }
 
-  const newUser = await authRepository().createUserAccount(user)
+  const account = await authRepository().signUpAccount(signUpPayload)
 
   return {
-    result: { data: newUser },
+    result: { data: account },
     errors: [],
     info: null
   }

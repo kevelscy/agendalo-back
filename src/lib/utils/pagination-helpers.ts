@@ -21,8 +21,6 @@ export function generatePaginationResponse(limit: number, page: number, count: n
 export function applyQueries<T extends Record<string, any>>(queries: T): Record<string, any> {
   const query: Record<string, any> = {}
 
-  console.log({ queries })
-
   Object.keys(queries).forEach((key) => {
     if (queries[key]) {
       query[key] = { $regex: new RegExp(queries[key], 'i') } // Búsqueda case-insensitive
@@ -46,15 +44,18 @@ export function applyFilters<T extends Record<string, any>>(filters: T): Record<
 
 
 export const isQueryPaginationInvalid = (query: Record<string, string>) => {
-  let result = false
+  let result = false;
 
-  if (!query?.limit || !query?.page) {
-    result = true
+  const limit = query['pagination[limit]'];
+  const page = query['pagination[page]'];
+
+  if (!limit || !page) {
+    result = true;
   }
 
-  if (Number(query.limit) > MAX_LIMIT_PAGINATION) {
-    result = true
+  if (Number(limit) > MAX_LIMIT_PAGINATION) {
+    result = true;
   }
 
-  return result
+  return result;
 }

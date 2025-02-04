@@ -2,7 +2,7 @@
 import { PRODUCT_CATEGORY_ROUTES } from '@/app/product-categories/routes'
 import { BATCH_PAYMENT_ROUTES } from '@/app/batch-payments/routes'
 import { EMPLOYEE_ROUTES } from '@/app/employees/routes'
-import { COMPANY_ROUTES } from '@/app/companies/routes'
+import { COMPANY_ROUTES } from '@/app/bussiness/routes'
 import { PAYMENT_ROUTES } from '@/app/payments/routes'
 import { PRODUCT_ROUTES } from '@/app/products/routes'
 import { USER_ROUTES } from '@/app/users/routes'

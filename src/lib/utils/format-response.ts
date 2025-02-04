@@ -1,4 +1,4 @@
-import { IHandleResponse, Pagination, Result } from '../schemas/http'
+import { HandleResponse, Pagination, Result } from '../schemas/http'
 
 interface FormatResponseParams<T> {
   data: T
@@ -7,7 +7,7 @@ interface FormatResponseParams<T> {
   pagination?: Pagination
 }
 
-export const formatResponse = <T>({ data, message, pagination, status }: FormatResponseParams<T>): IHandleResponse<T> => {
+export const formatResponse = <T>({ data, message, pagination, status }: FormatResponseParams<T>): HandleResponse<T> => {
   const result: Result<T> = { data }
 
   result.pagination = pagination

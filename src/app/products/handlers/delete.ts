@@ -1,13 +1,13 @@
 import { Handler } from 'elysia'
 
 import { validateMongoId } from '@/lib/middlewares/validate-mongodb-id'
-import { IHandleResponse } from '@/lib/schemas/http'
+import { HandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/errors'
 
 import { productRepository } from '../repository'
 import { Product } from '../models'
 
-export const handleDeleteProductById: Handler = async ({ params, set, headers }): Promise<IHandleResponse<Product>> => {
+export const handleDeleteProductById: Handler = async ({ params, set, headers }): Promise<HandleResponse<Product>> => {
   const { bussines } = headers
 
   try {

@@ -75,6 +75,7 @@ export const getAll = async (params: Params<ProductQueries, ProductFilters> = {}
   const { pagination, filters, queries } = params
   let filter, query
 
+
   if (!isObjectEmpty(filters)) filter = applyFilters(filters)
   if (!isObjectEmpty(queries)) query = applyQueries(queries)
 
