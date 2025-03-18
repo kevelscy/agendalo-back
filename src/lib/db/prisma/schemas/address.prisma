@@ -1,0 +1,10 @@
+model Address {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  street    String
+  city      String
+  state     String
+  zipCode   String?
+  latitude  Float
+  longitude Float
+  business  Business?
+}

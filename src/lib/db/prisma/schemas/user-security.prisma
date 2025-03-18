@@ -1,0 +1,11 @@
+model UserSecurity {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  token     String?
+  password  String
+
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

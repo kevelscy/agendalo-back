@@ -1,0 +1,28 @@
+enum AppointmentStatus {
+  PENDING
+  IN_PROCESS
+  COMPLETED
+}
+
+model Appointment {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  date        DateTime
+  endDate     DateTime
+  status      AppointmentStatus   @default(PENDING)
+
+  client      User     @relation(fields: [clientId], references: [id])
+  clientId    String   @db.ObjectId
+
+  service     Service  @relation(fields: [serviceId], references: [id])
+  serviceId   String   @db.ObjectId
+
+  business    Business @relation(fields: [businessId], references: [id])
+  businessId  String   @db.ObjectId
+
+  payment     Payment?
+  reminders   Reminder[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([date, clientId, businessId])
+}

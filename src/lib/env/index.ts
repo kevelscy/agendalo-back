@@ -1,12 +1,16 @@
 import { z } from 'zod'
 
 const envVariables = z.object({
-  DATABASE_URL: z.string().min(1),
+  PORT: z.coerce.number().default(3000),
+  RUNTIME: z.enum(['bun', 'edge']).default('bun'),
   NODE_ENV: z
     .enum(['development', 'production', 'test'])
     .default('development'),
-  PORT: z.coerce.number().default(3000),
-  RUNTIME: z.enum(['bun', 'edge']).default('bun'),
 })
 
-export const env = envVariables.parse(process.env)
+export const env = envVariables.parse({
+  DATABASE_URL: process.env.DATABASE_URL,
+  PORT: process.env.PORT,
+  RUNTIME: process.env.RUNTIME,
+  NODE_ENV: process.env.NODE_ENV
+})

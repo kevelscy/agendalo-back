@@ -1,0 +1,39 @@
+enum BusinessType {
+  BARBERSHOP
+  SKINCARE
+  MANICURE
+  SPA
+  GYM
+  RESTAURANT
+  OTHER
+}
+
+model Business {
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  description  String
+  rif          String         @unique
+  businessType BusinessType
+  logo         String
+  city         String
+  municipality String
+  phone        String
+
+  services     Service[]
+  payments     Payment[]
+  appointments Appointment[]
+  hours        BusinessHour[]
+  subscriptions Subscription[]
+  promotions   ServicePromotion[]
+
+  address      Address        @relation(fields: [addressId], references: [id])
+  addressId    String         @unique @db.ObjectId
+
+  owner        User           @relation(fields: [ownerId], references: [id])
+  ownerId      String         @db.ObjectId
+
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  @@index([rif, ownerId, city])
+}

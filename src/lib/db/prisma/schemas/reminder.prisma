@@ -1,0 +1,13 @@
+model Reminder {
+  id            String     @id @default(auto()) @map("_id") @db.ObjectId
+  method        String
+  triggerTime   DateTime
+  sent          Boolean    @default(false)
+  retries       Int        @default(0)
+
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  appointmentId String     @db.ObjectId
+
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}

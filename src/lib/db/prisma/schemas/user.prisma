@@ -1,0 +1,28 @@
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model User {
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  firstName      String
+  lastName       String
+  ci             String           @unique
+  phone          String
+  photo          String?
+  email          String           @unique
+  password       String
+  status         UserStatus           @default(ACTIVE)
+  role           String           @default("CLIENT")
+
+  payments       Payment[]
+  businesses     Business[]
+  appointments   Appointment[]
+  security       UserSecurity?
+  subscriptions  Subscription[]
+
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  @@index([ci, email, phone])
+}

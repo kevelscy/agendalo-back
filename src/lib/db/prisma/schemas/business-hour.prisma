@@ -1,0 +1,10 @@
+
+model BusinessHour {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  dayOfWeek  Int
+  opening    DateTime
+  closing    DateTime
+
+  business   Business @relation(fields: [businessId], references: [id])
+  businessId String   @db.ObjectId
+}

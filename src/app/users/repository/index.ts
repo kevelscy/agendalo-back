@@ -1,14 +1,15 @@
 import hasher from 'argon2'
 
-import { applyFilters, applyQueries, generatePaginationResponse, paginate } from '@/lib/utils/pagination-helpers'
 import { UserCreate, UserEdit, User, UserModel, UserSecurityModel, UserFilters, UserQueries, UserStatus } from '../models'
+import { applyFilters, applyQueries, generatePaginationResponse, paginate } from '@/lib/utils/pagination-helpers'
 import { isObjectEmpty } from '@/lib/utils/is-object-empty'
 import { Params, Result } from '@/lib/schemas/http'
 
 
 export const getAll = async (params: Params<UserQueries, UserFilters> = {}): Promise<Result<User[]>> => {
   const { pagination, filters, queries } = params
-  let filter, query
+  let filter
+  let query
 
   if (!isObjectEmpty(filters)) filter = applyFilters(filters)
   if (!isObjectEmpty(queries)) query = applyQueries(queries)

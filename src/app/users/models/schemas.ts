@@ -1,9 +1,5 @@
 import { z } from 'zod'
-
-export enum UserStatus {
-  ACTIVATE = 'ACTIVATE',
-  INACTIVATE = 'INACTIVATE'
-}
+import { UserStatus } from '@prisma/client'
 
 export const userStatusSchema = z.nativeEnum(UserStatus)
 
@@ -47,7 +43,7 @@ export const USER_FILTERS = userSchema.extend({}).omit({
 export interface UserQueries extends z.infer<typeof USER_QUERIES> { }
 export interface UserFilters extends z.infer<typeof USER_FILTERS> { }
 
-export interface User extends z.infer<typeof userSchema> { }
+// export interface User extends z.infer<typeof userSchema> { }
 export interface UserEdit extends z.infer<typeof updateUserSchema> { }
 export interface UserCreate extends z.infer<typeof createUserSchema> { }
 

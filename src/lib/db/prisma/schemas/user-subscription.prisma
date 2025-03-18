@@ -1,0 +1,28 @@
+enum SubscriptionPlan {
+  BASIC
+  PRO
+  PREMIUM
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model Subscription {
+  id            String               @id @default(auto()) @map("_id") @db.ObjectId
+  plan          SubscriptionPlan
+  startDate     DateTime
+  endDate       DateTime
+  status        SubscriptionStatus               @default(ACTIVE)
+
+  business      Business             @relation(fields: [businessId], references: [id])
+  businessId    String               @db.ObjectId
+
+  owner         User                 @relation(fields: [ownerId], references: [id])
+  ownerId       String               @db.ObjectId
+
+  promotions    SubscriptionPromotion[]
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+}
