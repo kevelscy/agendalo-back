@@ -1,6 +1,6 @@
 import { Schema, model, Types } from 'mongoose'
 
-import { commonSchemaOptions } from '@/lib/utils/schemas-options'
+import { commonSchemaOptions } from '@/lib/utils/db/schemas-options'
 import { Product, ProductImage, ProductStatus } from './schemas'
 
 const PRODUCT_IMAGE_DB_SCHEMA = new Schema<ProductImage>({

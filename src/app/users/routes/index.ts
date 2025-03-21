@@ -1,10 +1,10 @@
 import { bearer } from '@elysiajs/bearer'
 import { Elysia } from 'elysia'
 
-import { handleGetUserById } from '@/app/users/handlers/get-user-by-id'
-import { handleGetAllUsers } from '@/app/users/handlers/get-all-users'
-import { handleCreateUser } from '@/app/users/handlers/create-user'
-import { handleUpdateUser } from '@/app/users/handlers/update-user'
+import { handleGetUserById } from '@/app/users/controllers/get-user.controller'
+import { handleGetAllUsers } from '@/app/users/controllers/get-all-users.controller'
+import { handleCreateUser } from '@/app/users/controllers/create-user.controller'
+import { handleUpdateUser } from '@/app/users/controllers/update-user.controller'
 import { verifyToken } from '@/lib/middlewares/verify-token'
 
 export const USER_ROUTES = new Elysia()

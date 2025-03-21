@@ -1,5 +1,5 @@
 model SubscriptionPromotion {
-  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  id           String             @id @default(auto()) @map("_id") @db.ObjectId
   name         String
   description  String
   discount     Float
@@ -8,9 +8,9 @@ model SubscriptionPromotion {
   endDate      DateTime
   applicableTo SubscriptionPlan[]
 
-  subscription Subscription? @relation(fields: [subscriptionId], references: [id])
-  subscriptionId String?     @db.ObjectId
+  subscription   Subscription? @relation(fields: [subscriptionId], references: [id])
+  subscriptionId String?       @db.ObjectId
 
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

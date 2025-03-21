@@ -1,35 +1,37 @@
 {
-	"$schema": "https://json.schemastore.org/tsconfig",
-	"compilerOptions": {
-		"noUncheckedIndexedAccess": true, // Increases type-safety
-		"strict": true,
-		"allowImportingTsExtensions": true,
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
-		"paths": {
-			"@/*": ["./src/*"],
-			"@/auth/*": ["./src/app/auth/*"],
-			"@/users/*": ["./src/app/users/*"],
-			"@/business/*": ["./src/app/business/*"],
-			"@/payments/*": ["./src/app/payments/*"],
-			"@/products/*": ["./src/app/products/*"],
-			"@/employees/*": ["./src/app/employees/*"],
-			"@/batch-payments/*": ["./src/app/batch-payments/*"],
-			"@/product-categories/*": ["./src/app/product-categories/*"]
-		},
-		"resolveJsonModule": true,
-		"noImplicitAny": false,
-		"strictNullChecks": false,
-		"types": ["bun-types"], // add Bun global
-		"downlevelIteration": true,
-		"noEmit": true,
-		"allowJs": true,
-		"allowSyntheticDefaultImports": true,
-		"forceConsistentCasingInFileNames": true,
-		"lib": ["ESNext"],
-		"moduleDetection": "force",
-		"target": "ESNext",
-		"composite": true,
-		"skipLibCheck": true
-	}
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "noUncheckedIndexedAccess": true, // Increases type-safety
+    "strict": true,
+    "allowImportingTsExtensions": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/auth/*": ["./src/app/auth/*"],
+      "@/db/*": ["./src/lib/db/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/users/*": ["./src/app/users/*"],
+      "@/business/*": ["./src/app/business/*"],
+      "@/payments/*": ["./src/app/payments/*"],
+      "@/products/*": ["./src/app/products/*"],
+      "@/employees/*": ["./src/app/employees/*"],
+      "@/batch-payments/*": ["src/app/controllers/*"],
+      "@/product-categories/*": ["./src/app/product-categories/*"]
+    },
+    "resolveJsonModule": true,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "types": ["bun-types"], // add Bun global
+    "downlevelIteration": true,
+    "noEmit": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ESNext"],
+    "moduleDetection": "force",
+    "target": "ESNext",
+    "composite": true,
+    "skipLibCheck": true
+  }
 }

@@ -1,0 +1,7 @@
+import { COMMON_DICTIONARY_ERRORS } from './common'
+import { USER_DICTIONARY_ERRORS } from './users'
+
+export const DICTIONARY_ERRORS = {
+  ...COMMON_DICTIONARY_ERRORS,
+  ...USER_DICTIONARY_ERRORS
+}

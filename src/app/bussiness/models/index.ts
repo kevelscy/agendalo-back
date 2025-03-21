@@ -1,7 +1,7 @@
 import { Schema, model, Types } from 'mongoose'
 
 import { Bussiness, BussinessImage, BussinessStatus } from './schemas'
-import { commonSchemaOptions } from '@/lib/utils/schemas-options'
+import { commonSchemaOptions } from '@/lib/utils/db/schemas-options'
 
 const BUSSINESS_IMAGE_DB_SCHEMA = new Schema<BussinessImage>({
   url: {

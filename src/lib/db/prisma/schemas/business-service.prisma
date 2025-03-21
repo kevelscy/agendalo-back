@@ -9,20 +9,20 @@ enum ServiceCategory {
 }
 
 model Service {
-  id          String            @id @default(auto()) @map("_id") @db.ObjectId
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
   duration    Int
   price       Float
 
-  payments    Payment[]
+  payments     Payment[]
   appointments Appointment[]
-  category    ServiceCategory
-  promotions  ServicePromotion[]
+  category     ServiceCategory
+  promotions   ServicePromotion[]
 
-  business    Business          @relation(fields: [businessId], references: [id])
-  businessId  String            @db.ObjectId
+  business   Business @relation(fields: [businessId], references: [id])
+  businessId String   @db.ObjectId
 
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

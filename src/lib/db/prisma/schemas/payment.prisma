@@ -8,25 +8,25 @@ enum PaymentMethod {
 }
 
 model Payment {
-  id            String       @id @default(auto()) @map("_id") @db.ObjectId
-  amountBs      Float
-  amountUsd     Float
-  exchangeRate  Float
-  method        PaymentMethod
-  reference     String?
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  amountBs     Float
+  amountUsd    Float
+  exchangeRate Float
+  method       PaymentMethod
+  reference    String?
 
-  client        User         @relation(fields: [clientId], references: [id])
-  clientId      String       @db.ObjectId
+  client   User   @relation(fields: [clientId], references: [id])
+  clientId String @db.ObjectId
 
-  service       Service      @relation(fields: [serviceId], references: [id])
-  serviceId     String       @db.ObjectId
+  service   Service @relation(fields: [serviceId], references: [id])
+  serviceId String  @db.ObjectId
 
-  business      Business     @relation(fields: [businessId], references: [id])
-  businessId    String       @db.ObjectId
+  business   Business @relation(fields: [businessId], references: [id])
+  businessId String   @db.ObjectId
 
   appointment   Appointment? @relation(fields: [appointmentId], references: [id])
   appointmentId String?      @unique @db.ObjectId
 
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

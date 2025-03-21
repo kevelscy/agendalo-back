@@ -1,6 +1,5 @@
 
 import { PRODUCT_CATEGORY_ROUTES } from '@/app/product-categories/routes'
-import { BATCH_PAYMENT_ROUTES } from '@/app/batch-payments/routes'
 import { EMPLOYEE_ROUTES } from '@/app/employees/routes'
 import { COMPANY_ROUTES } from '@/app/bussiness/routes'
 import { PAYMENT_ROUTES } from '@/app/payments/routes'
@@ -17,7 +16,6 @@ export const routes = createElysia({ prefix: '/api' })
   .use(COMPANY_ROUTES)
   .use(EMPLOYEE_ROUTES)
   .use(PAYMENT_ROUTES)
-  .use(BATCH_PAYMENT_ROUTES)
   .use(PRODUCT_ROUTES)
   .use(PRODUCT_CATEGORY_ROUTES)
   .use(HEALTH_ROUTES)

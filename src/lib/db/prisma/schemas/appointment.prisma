@@ -5,24 +5,24 @@ enum AppointmentStatus {
 }
 
 model Appointment {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  date        DateTime
-  endDate     DateTime
-  status      AppointmentStatus   @default(PENDING)
+  id      String            @id @default(auto()) @map("_id") @db.ObjectId
+  date    DateTime
+  endDate DateTime
+  status  AppointmentStatus @default(PENDING)
 
-  client      User     @relation(fields: [clientId], references: [id])
-  clientId    String   @db.ObjectId
+  client   User   @relation(fields: [clientId], references: [id])
+  clientId String @db.ObjectId
 
-  service     Service  @relation(fields: [serviceId], references: [id])
-  serviceId   String   @db.ObjectId
+  service   Service @relation(fields: [serviceId], references: [id])
+  serviceId String  @db.ObjectId
 
-  business    Business @relation(fields: [businessId], references: [id])
-  businessId  String   @db.ObjectId
+  business   Business @relation(fields: [businessId], references: [id])
+  businessId String   @db.ObjectId
 
-  payment     Payment?
-  reminders   Reminder[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  payment   Payment?
+  reminders Reminder[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 
   @@index([date, clientId, businessId])
 }

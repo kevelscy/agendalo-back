@@ -3,8 +3,8 @@ import { Elysia } from 'elysia'
 
 import { verifyToken } from '@/lib/middlewares/verify-token'
 
-import { handleCreateBussiness } from '../handlers/create'
-import { handleGetAllBussiness } from '../handlers/get-all'
+import { handleCreateBussiness } from '../controllers/create'
+import { handleGetAllBussiness } from '../controllers/get-all'
 
 export const COMPANY_ROUTES = new Elysia()
   .use(bearer())

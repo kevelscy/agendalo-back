@@ -1,5 +1,5 @@
 model Address {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
   street    String
   city      String
   state     String
