@@ -1,5 +1,5 @@
 import { applyFilters, applyQueries, generatePaginationResponse, paginate } from '@/lib/utils/db/pagination-helpers'
-import { Bussiness, BussinessCreate, BussinessEdit, BussinessFilters, BussinessImage, BussinessImageModel, BussinessModel, BussinessQueries, BussinessStatus } from '../models'
+import { Bussiness, BussinessCreate, BussinessEdit, BussinessFilters, BussinessImage, BussinessImageModel, BussinessModel, BussinessQueries, BussinessStatus } from '../entities'
 import { isObjectEmpty } from '@/lib/utils/validations/is-object-empty'
 import type { Params, Result } from '@/lib/schemas/http'
 import { saveFile } from '@/lib/services/storage'

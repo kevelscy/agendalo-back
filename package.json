@@ -22,20 +22,21 @@
 		"@elysiajs/cors": "1.2.0",
 		"@elysiajs/swagger": "1.2.2",
 		"@hokify/agenda": "6.3.0",
-		"@libsql/client": "0.15.0",
-		"@prisma/client": "6.5.0",
+		"@libsql/client": "0.15.4",
+		"@prisma/client": "6.6.0",
 		"@zodyac/zod-mongoose": "3.2.0",
 		"argon2": "0.41.1",
 		"concurrently": "9.1.2",
 		"elysia": "latest",
-		"firebase": "11.4.0",
-		"mongoose": "8.12.1",
-		"prisma": "6.5.0",
+		"firebase": "11.6.0",
+		"mongoose": "8.13.2",
+		"prisma": "6.6.0",
 		"uuidv4": "6.2.13",
 		"zod": "3.24.2"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"bun-types": "latest"
+		"bun-types": "latest",
+		"zod-prisma-types": "3.2.4"
 	}
 }

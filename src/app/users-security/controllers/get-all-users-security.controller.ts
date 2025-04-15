@@ -5,12 +5,11 @@ import { formatResponse } from '@/lib/utils/formaters/format-response'
 import { DICTIONARY_SUCCESS } from '@/config/consts/success/sucess'
 import { HandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/consts/errors/errors'
-import { bussinessRepository } from '../services'
-import { Bussiness } from '../models'
 
-export const handleGetAllBussiness: Handler = async ({ set, query, headers }): Promise<HandleResponse<Bussiness[]>> => {
-  const { bussines } = headers
+import { User } from '@/app/users/entities/user.entity'
+import { userServices } from '@/app/users/services'
 
+export const handleGetAllUsersSecurity: Handler = async ({ set, query }): Promise<HandleResponse<User[]>> => {
   const invalidPagination = isQueryPaginationInvalid(query)
 
   if (invalidPagination) {
@@ -19,7 +18,7 @@ export const handleGetAllBussiness: Handler = async ({ set, query, headers }): P
     return {
       result: null,
       info: null,
-      errors: [DICTIONARY_ERRORS.PAGINATION_INVALID],
+      errors: [{ ...DICTIONARY_ERRORS.PAGINATION_INVALID }],
     }
   }
 
@@ -28,13 +27,13 @@ export const handleGetAllBussiness: Handler = async ({ set, query, headers }): P
     page: Number(query.page),
   }
 
-  const { data, pagination } = await bussinessRepository().getAll({ ...query, pagination: paginationInfo })
+  const { data, pagination } = await userServices().getAll({ ...query, pagination: paginationInfo })
 
   const response = formatResponse({
     data,
     pagination,
-    message: DICTIONARY_SUCCESS.PRODUCTS.GET_ALL.message,
-    status: DICTIONARY_SUCCESS.PRODUCTS.GET_ALL.code
+    message: DICTIONARY_SUCCESS.USERS.GET_ALL.message,
+    status: DICTIONARY_SUCCESS.USERS.GET_ALL.code
   });
 
   return response

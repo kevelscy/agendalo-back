@@ -1,6 +1,6 @@
 import { Handler } from 'elysia'
 
-import { validateSchema } from '@/lib/utils/validations/validate-schema'
+import { validateZodDTO } from '@/lib/utils/validations/validate-schema'
 import { HandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/consts/errors/errors'
 
@@ -15,7 +15,7 @@ export const handleCreateProduct: Handler = async ({ body, set, headers }): Prom
     price: Number((body as any).price)
   }
 
-  const isValidReq = await validateSchema(productCreateSchema, product)
+  const isValidReq = await validateZodDTO(productCreateSchema, product)
 
   if (!isValidReq) {
     set.status = DICTIONARY_ERRORS.MISSING_FIELDS.code

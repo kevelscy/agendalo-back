@@ -16,7 +16,7 @@
       "@/payments/*": ["./src/app/payments/*"],
       "@/products/*": ["./src/app/products/*"],
       "@/employees/*": ["./src/app/employees/*"],
-      "@/batch-payments/*": ["src/app/controllers/*"],
+      "@/users-security/*": ["./src/app/users-security/*"],
       "@/product-categories/*": ["./src/app/product-categories/*"]
     },
     "resolveJsonModule": true,

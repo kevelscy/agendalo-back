@@ -1,10 +1,10 @@
 import { Handler } from 'elysia'
 
-import { validateSchema } from '@/lib/utils/validations/validate-schema'
+import { validateZodDTO } from '@/lib/utils/validations/validate-schema'
 import { HandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/consts/errors/errors'
 
-import { Bussiness, BussinessCreate, bussinessCreateSchema } from '../models'
+import { Bussiness, BussinessCreate, bussinessCreateSchema } from '../entities'
 import { bussinessRepository } from '../services'
 
 export const handleCreateBussiness: Handler = async ({ body, set, headers }): Promise<HandleResponse<Bussiness>> => {
@@ -14,7 +14,7 @@ export const handleCreateBussiness: Handler = async ({ body, set, headers }): Pr
     ...body as BussinessCreate
   }
 
-  const isValidReq = await validateSchema(bussinessCreateSchema, bussiness)
+  const isValidReq = await validateZodDTO(bussinessCreateSchema, bussiness)
 
   if (!isValidReq) {
     set.status = DICTIONARY_ERRORS.MISSING_FIELDS.code

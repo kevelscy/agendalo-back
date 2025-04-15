@@ -3,7 +3,7 @@ import hasher from 'argon2'
 import { User, UserCreateDTO, UserModel, UserSecurityModel } from '@/app/users/dtos/user.dto'
 import { SignUpPayload } from '../models'
 import { userServices } from '@/app/users/services'
-import { bussinessRepository } from '@/app/bussiness/services'
+import { bussinessRepository } from '@/app/business/services'
 import { convertFormdataToObject } from '@/lib/utils/formaters/convert-formdata-to-object'
 
 // TODO: encrypt password

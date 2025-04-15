@@ -1,7 +1,7 @@
 
 import { PRODUCT_CATEGORY_ROUTES } from '@/app/product-categories/routes'
 import { EMPLOYEE_ROUTES } from '@/app/employees/routes'
-import { COMPANY_ROUTES } from '@/app/bussiness/routes'
+import { COMPANY_ROUTES } from '@/app/business/routes'
 import { PAYMENT_ROUTES } from '@/app/payments/routes'
 import { PRODUCT_ROUTES } from '@/app/products/routes'
 import { HEALTH_ROUTES } from '@/app/healthz/routes'

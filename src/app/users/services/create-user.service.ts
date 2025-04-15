@@ -1,7 +1,7 @@
 import { createCustomError } from '@/lib/utils/errors'
 import { prisma } from '@/lib/db/prisma/client'
 
-import { User, UserCreateInput } from '@/users/entities/user.entity'
+import { User, UserCreateInput, UserStatusSchema } from '@/users/entities/user.entity'
 
 export const createUser = async (input: UserCreateInput): Promise<User> => {
   const isExistUser = await prisma.user.findFirst({
@@ -20,7 +20,7 @@ export const createUser = async (input: UserCreateInput): Promise<User> => {
   const user = await prisma.user.create({
     data: {
       pid: input.pid,
-      status: 'ACTIVE',
+      status: UserStatusSchema.Values.ACTIVE,
       email: input.email,
       phone: input.phone,
       lastName: input.lastName,

@@ -9,7 +9,7 @@ import { User, UserCreateInput } from '@/users/entities/user.entity'
 import { UserCreateDTO } from '@/app/users/dtos/user.dto'
 import { userServices } from '@/app/users/services'
 
-export const handleCreateUser: Handler = async ({ body, set }): Promise<HandleResponse<User>> => {
+export const handleCreateUserSecurity: Handler = async ({ body, set }): Promise<HandleResponse<User>> => {
   const user = body as UserCreateInput
 
   const isValidReq = validateZodDTO(UserCreateDTO, user)

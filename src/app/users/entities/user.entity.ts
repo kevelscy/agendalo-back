@@ -1,7 +1,7 @@
 // user.entity.ts
 import { z } from 'zod'
 
-import { UserCreateInputSchema, UserSchema, UserStatusType, UserUpdateInputSchema } from '@/db/prisma/zod'
+import { UserCreateInputSchema, UserSchema, UserStatusSchema, UserUpdateInputSchema, UserRoleSchema } from '@/db/prisma/zod'
 import { UserFiltersDTO, UserQueriesDTO } from '@/users/dtos/user.dto'
 
 export enum USER_ACTIONS {
@@ -18,4 +18,7 @@ export type UserFilters = z.infer<typeof UserFiltersDTO>
 export type UserEditInput = z.infer<typeof UserUpdateInputSchema>
 export type UserCreateInput = z.infer<typeof UserCreateInputSchema>
 
-export type { UserStatusType as UserStatus }
+export {
+  UserStatusSchema as UserStatus,
+  UserRoleSchema as UserRole
+}
