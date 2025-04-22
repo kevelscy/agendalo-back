@@ -4,17 +4,18 @@ import { validateZodDTO } from '@/lib/utils/validations/validate-schema'
 import { HandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/consts/errors/errors'
 
-import { Bussiness, BussinessCreate, bussinessCreateSchema } from '../entities'
-import { bussinessRepository } from '../services'
+import { Business, BusinessCreateInput } from '@/business/entities/business.entity'
+import { bussinessRepository } from '@/business/services'
+import { BusinessCreateDTO } from '@/business/dtos/business.dto'
 
-export const handleCreateBussiness: Handler = async ({ body, set, headers }): Promise<HandleResponse<Bussiness>> => {
-  const { bussines } = headers
+export const handleCreateBussiness: Handler = async ({ body, set, headers }): Promise<HandleResponse<Business>> => {
+  const { owner } = headers
 
-  const bussiness: BussinessCreate = {
-    ...body as BussinessCreate
+  const bussiness: BusinessCreateInput = {
+    ...body as BusinessCreateInput
   }
 
-  const isValidReq = await validateZodDTO(bussinessCreateSchema, bussiness)
+  const isValidReq = await validateZodDTO(BusinessCreateDTO, bussiness)
 
   if (!isValidReq) {
     set.status = DICTIONARY_ERRORS.MISSING_FIELDS.code

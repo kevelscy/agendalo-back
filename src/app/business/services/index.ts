@@ -1,100 +1,70 @@
-import { applyFilters, applyQueries, generatePaginationResponse, paginate } from '@/lib/utils/db/pagination-helpers'
-import { Bussiness, BussinessCreate, BussinessEdit, BussinessFilters, BussinessImage, BussinessImageModel, BussinessModel, BussinessQueries, BussinessStatus } from '../entities'
+import { prisma } from '@/lib/db/prisma/client'
+import { Business, BusinessCreateInput, BusinessEditInput, BusinessFilters, BusinessQueries } from '@/business/entities/business.entity'
+
+import { applyFilters, applyQueries, generatePaginationResponse, paginate } from '@/lib/utils/db/mongoose-pagination-helpers'
 import { isObjectEmpty } from '@/lib/utils/validations/is-object-empty'
 import type { Params, Result } from '@/lib/schemas/http'
-import { saveFile } from '@/lib/services/storage'
 import { slugify } from '@/lib/utils/formaters/slugify'
+import { saveFile } from '@/lib/services/storage'
+import { FileExt } from '@/lib/schemas/common'
 
-const formatImage = async (bussiness: BussinessCreate, bussinesId: string): Promise<BussinessImage> => {
+const formatImage = async (bussiness: BusinessCreateInput, bussinesId: string): Promise<any> => {
   const slug = slugify(bussiness.name)
 
   const path = `${bussinesId}/logos/${slug}`
 
-  const file = new File([bussiness?.name], bussiness.name, { type: bussiness?.logo.type })
+  const file = new File([bussiness?.name], bussiness.name, { type: bussiness?.logo })
 
   const result = await saveFile({
-    ext: bussiness.logo.type.replace('image/', ''),
+    // ext: bussiness.logo.type.replace('image/', ''),
+    ext: FileExt.PNG,
     path,
-    file: bussiness.logo,
+    file: bussiness.logo as any,
     filename: file.name,
   })
 
   return result
 }
 
-export const getAll = async (params: Params<BussinessQueries, BussinessFilters> = {}): Promise<Result<Bussiness[]>> => {
-  const { pagination, filters, queries } = params
-  let filter = null
-  let query = null
-
-  if (!isObjectEmpty(filters)) filter = applyFilters(filters)
-  if (!isObjectEmpty(queries)) query = applyQueries(queries)
-
-  const { limit: pageLimit, skip } = paginate(pagination)
-
-  console.log({ query, pageLimit, queries })
-
-  const bussiness = await BussinessModel.find({ ...filter, ...query })
-    .limit(pageLimit)
-    .skip(skip)
-
-  const count = await BussinessModel.countDocuments({ ...filter, ...query });
-
-  const paginationInfo = generatePaginationResponse(pageLimit, pagination.page, count);
+export const getAll = async (params: Params<BusinessQueries, BusinessFilters> = {}): Promise<Result<Business[]>> => {
+  const res = await prisma.business.findMany()
 
   return {
-    pagination: paginationInfo,
-    data: bussiness
+    pagination: null,
+    data: res
   }
 }
 
-export const getById = async (id: string): Promise<Bussiness> => {
-  const bussinessFinded = await BussinessModel.findById(id) as Bussiness
-  return bussinessFinded
+export const getById = async (id: string): Promise<Business> => {
+  const res = await prisma.business.findUnique({ where: { id } })
+  return res
 }
 
-const create = async (bussiness: BussinessCreate): Promise<Bussiness> => {
-  try {
-
-    const BussinesToCreate = new BussinessModel({
-      name: bussiness.name,
-      status: BussinessStatus.ACTIVE,
-      description: bussiness?.description || null
-    })
-
-    const logo = await formatImage(bussiness, BussinesToCreate._id.toString())
-    const logoCreated = await BussinessImageModel.create(logo)
-
-    if (logoCreated) BussinesToCreate.set('logo', logoCreated)
-
-    const bussinessSaved = await BussinesToCreate.save()
-
-    const bussinessCreatedJSON = bussinessSaved.toJSON()
-
-    return bussinessCreatedJSON
-  } catch (error) {
-    console.error('Error creating bussiness:', error)
-    return null
-  }
+const create = async (payload: BusinessCreateInput): Promise<Business> => {
+  const res = await prisma.business.create({ data: payload })
+  return res
 }
 
-export const update = async (id: string, bussiness: BussinessEdit): Promise<Bussiness> => {
-  const bussinessUpdated = await BussinessModel.findByIdAndUpdate(id, bussiness) as Bussiness
-  return bussinessUpdated
+export const update = async (id: string, payload: BusinessEditInput): Promise<Business> => {
+  const res = await prisma.business.update({
+    where: { id },
+    data: payload
+  })
+
+  return res
 }
 
-export const remove = async (id: string): Promise<Bussiness> => {
-  const bussinessDeleted = await BussinessModel.findByIdAndDelete(id) as Bussiness
-  console.log({ bussinessDeleted })
-  return bussinessDeleted
+export const remove = async (id: string): Promise<Business> => {
+  const res = await prisma.business.delete({ where: { id } })
+  return res
 }
 
 export const bussinessRepository = () => {
   return {
-    getAll: (params: Params<BussinessQueries, BussinessFilters> = {}) => getAll(params),
+    getAll: (params: Params<BusinessQueries, BusinessFilters> = {}) => getAll(params),
     getById: (id: string) => getById(id),
-    create: (bussiness: BussinessCreate) => create(bussiness),
-    update: (id: string, bussiness: BussinessEdit) => update(id, bussiness),
+    create: (bussiness: BusinessCreateInput) => create(bussiness),
+    update: (id: string, bussiness: BusinessEditInput) => update(id, bussiness),
     delete: (id: string) => remove(id)
   }
 }

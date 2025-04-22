@@ -1,7 +1,7 @@
 import { Handler } from 'elysia'
 
 import { fromQueryString } from '@/lib/utils/formaters/convert-query-string-to-object'
-import { isQueryPaginationInvalid } from '@/lib/utils/db/pagination-helpers'
+import { isQueryPaginationInvalid } from '@/lib/utils/db/mongoose-pagination-helpers'
 import { formatResponse } from '@/lib/utils/formaters/format-response'
 import { DICTIONARY_SUCCESS } from '@/config/consts/success/sucess'
 import { HandleResponse } from '@/lib/schemas/http'

@@ -1,5 +1,5 @@
 import { Product, ProductCreate, ProductEdit, ProductFilters, ProductImage, ProductImageModel, ProductModel, ProductQueries } from '../models'
-import { applyFilters, applyQueries, generatePaginationResponse, paginate } from '@/lib/utils/db/pagination-helpers'
+import { applyFilters, applyQueries, generatePaginationResponse, paginate } from '@/lib/utils/db/mongoose-pagination-helpers'
 import { Params, Result } from '@/lib/schemas/http'
 import { saveFile } from '@/lib/services/storage'
 import { slugify } from '@/lib/utils/formaters/slugify'

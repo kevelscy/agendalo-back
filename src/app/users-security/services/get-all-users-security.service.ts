@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client'
 
-import { applyFilters, applyQueries, generatePaginationResponse, paginate } from '@/lib/utils/db/pagination-helpers'
+import { applyFilters, applyQueries, generatePaginationResponse, paginate } from '@/lib/utils/db/mongoose-pagination-helpers'
 import { isObjectEmpty } from '@/lib/utils/validations/is-object-empty'
 import { Filters, Params, Queries, Result } from '@/lib/schemas/http'
 import { prisma } from '@/lib/db/prisma/client'
