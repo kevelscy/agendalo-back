@@ -1,8 +1,9 @@
-import { User, UserEditDTO, UserSchema } from '@/app/users/dtos/user.dto'
 import { prisma } from '@/lib/db/prisma/client'
+import { User, UserEditInput } from '../entities/user.entity'
+import { UserEditDTO } from '../dtos/user.dto'
 
 export const updateUser = async (id: string, input: Partial<UserEditInput>): Promise<User> => {
-  const validatedData = UserSchema.partial().parse(input)
+  const validatedData = UserEditDTO.parse(input)
 
   // Verificar existencia
   const existingUser = await prisma.user.findUnique({ where: { id } })
@@ -18,8 +19,8 @@ export const updateUser = async (id: string, input: Partial<UserEditInput>): Pro
             { NOT: { id } },
             {
               OR: [
-                { pid: validatedData.pid },
-                { email: validatedData.email }
+                { pid: validatedData.pid?.toString?.() },
+                { email: validatedData.email?.toString?.() }
               ]
             }
           ]

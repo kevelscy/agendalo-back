@@ -1,10 +1,11 @@
 import { Prisma } from '@prisma/client'
 
-import { applyFilters, applyQueries, generatePaginationResponse, paginate } from '@/lib/utils/db/mongoose-pagination-helpers'
-import { User, UserFilters, UserQueries } from '../dtos/user.dto'
+import { User, UserFilters, UserQueries } from '@/users/entities/user.entity'
+import {  } from '@/users/dtos/user.dto'
 
-import { Filters, Params, Queries, Result } from '@/lib/schemas/http'
+import { applyFilters, applyQueries, generatePaginationResponse, paginate } from '@/lib/utils/db/mongoose-pagination-helpers'
 import { isObjectEmpty } from '@/lib/utils/validations/is-object-empty'
+import { Filters, Params, Queries, Result } from '@/lib/schemas/http'
 import { prisma } from '@/lib/db/prisma/client'
 
 type UserWhereInput = Prisma.UserWhereInput

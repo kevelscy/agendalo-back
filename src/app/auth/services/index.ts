@@ -1,11 +1,13 @@
 import hasher from 'argon2'
 
-import { userServices } from '@/app/users/services'
-import { bussinessRepository } from '@/app/business/services'
+import { SignUpInput, SignUpResponse } from '@/auth/entities/sign-up.entity'
+import { UserRole, UserStatus } from '@/users/entities/user.entity'
+import { usersSecurityServices } from '@/users-security/services'
+import { bussinessRepository } from '@/business/services'
+import { userServices } from '@/users/services'
+
 import { convertFormdataToObject } from '@/lib/utils/formaters/convert-formdata-to-object'
-import { SignUpInput, SignUpResponse } from '../entities/sign-up.entity'
-import { UserRole, UserStatus } from '@/app/users/entities/user.entity'
-import { usersSecurityServices } from '@/app/users-security/services'
+import { BusinessCreateInput } from '@/app/business/entities/business.entity'
 
 // TODO: encrypt password
 export const signUpAccount = async (payload: SignUpInput): Promise<SignUpResponse> => {
@@ -27,7 +29,7 @@ export const signUpAccount = async (payload: SignUpInput): Promise<SignUpRespons
     user: null
   })
 
-  const bussinessCreated = await bussinessRepository().create(business)
+  const bussinessCreated = await bussinessRepository().create(business as BusinessCreateInput)
 
   return {
     business: bussinessCreated,

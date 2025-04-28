@@ -43,6 +43,10 @@ export const DICTIONARY_SUCCESS = {
     [USER_ACTIONS.EDIT]: {
       message: 'Edición del usuario exitosa',
       code: 200
+    },
+    [USER_ACTIONS.DELETE]: {
+      message: 'Suspención del usuario exitosa',
+      code: 200
     }
   },
 

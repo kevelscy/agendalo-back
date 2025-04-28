@@ -1,4 +1,3 @@
-// create-user.controller.ts
 import { Handler } from 'elysia'
 
 import { validateZodDTO } from '@/lib/utils/validations/validate-schema'

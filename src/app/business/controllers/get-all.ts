@@ -3,12 +3,12 @@ import { Handler } from 'elysia'
 import { isQueryPaginationInvalid } from '@/lib/utils/db/mongoose-pagination-helpers'
 import { formatResponse } from '@/lib/utils/formaters/format-response'
 import { DICTIONARY_SUCCESS } from '@/config/consts/success/sucess'
-import { HandleResponse } from '@/lib/schemas/http'
 import { DICTIONARY_ERRORS } from '@/config/consts/errors/errors'
+import { Business } from '@/business/entities/business.entity'
+import { HandleResponse } from '@/lib/schemas/http'
 import { bussinessRepository } from '../services'
-import { Bussiness } from '../entities'
 
-export const handleGetAllBussiness: Handler = async ({ set, query, headers }): Promise<HandleResponse<Bussiness[]>> => {
+export const handleGetAllBussiness: Handler = async ({ set, query, headers }): Promise<HandleResponse<Business[]>> => {
   const { bussines } = headers
 
   const invalidPagination = isQueryPaginationInvalid(query)
